@@ -18,7 +18,7 @@ function Reusecomp({ title, icon, bill, change }: Data) {
 
       {/* Display error message if the bill is zero */}
       {isBillZero && (
-        <p className="text-red-500 text-sm text-right mb-2">This can't be zero</p>
+        <p className="text-red-500 text-sm text-right mb-2">This can&apos;t be zero</p>
       )}
 
       {/* Input and icon in the same line with background */}
