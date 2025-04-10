@@ -1,19 +1,12 @@
-import logo from "@/public/logo.svg";
-import Image from "next/image";
-import dollarIcon from "@/public/icon-dollar.svg"
-
+import TipComponent from './components/TipComponent';
 export default function Home() {
   return (
     <>
-      <div className="flex flex-col justify-center items-center">
-        {/*logo div */}
-        <div>
-          <Image src={logo} alt="splitter logo" width={80} height={60} />
-        </div>
-        {/*div for app */}
-        <div>
-        </div>
-      </div>
+      <TipComponent/>      
     </>
   );
 }
+
+// green #00474b
+// light green #00474b
+// font #00474b

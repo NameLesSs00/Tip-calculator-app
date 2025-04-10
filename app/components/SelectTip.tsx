@@ -8,36 +8,50 @@ function SelectTip() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (customTip) {
-        context?.setPerc(parseFloat(customTip) / 100);
+      if (customTip && !isNaN(Number(customTip))) {
+        context?.setPerc(customTip);
       }
-    }, 1000); // Wait 1 second before updating
+    }, 500);
 
-    return () => clearTimeout(timer); // Clear timeout if user types again
+    return () => clearTimeout(timer);
   }, [customTip, context]);
 
   if (!context) return <p>Loading...</p>;
 
   return (
     <div>
-      <p>Select Tip %</p>
+      <p className="mb-3 text-gray-400 font-bold">Select Tip %</p>
 
-      {/* Tip Buttons */}
-      <div>
-        <button onClick={() => context.setPerc(0.05)}>5%</button>
-        <button onClick={() => context.setPerc(0.10)}>10%</button>
-        <button onClick={() => context.setPerc(0.15)}>15%</button>
-        <button onClick={() => context.setPerc(0.25)}>25%</button>
-        <button onClick={() => context.setPerc(0.50)}>50%</button>
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 justify-items-center mb-5">
+        {[5, 10, 15, 25, 50].map((value) => {
+          const percValue = (value / 100).toString();
+          return (
+            <button
+              key={value}
+              onClick={() => {
+                context.setPerc(percValue);
+                setCustomTip("");
+              }}
+              className={`w-full text-center py-2 text-base rounded-md font-bold transition-colors cursor-pointer hover:bg-[#9fe8df]
+                ${
+                  context.perc === percValue
+                    ? "bg-[#26c0ab] text-[#00474b] "
+                    : "bg-[#00474b] text-white "
+                }`}
+            >
+              {value}%
+            </button>
+          );
+        })}
+
+        <input
+          type="text"
+          placeholder="Custom"
+          value={customTip}
+          onChange={(e) => setCustomTip(e.target.value)}
+          className="w-full py-2 text-base border-2 border-transparent hover:border-[#26c0ab] focus:border-[#26c0ab] focus:outline-none rounded-md text-right text-[#00474b] transition-colors"
+        />
       </div>
-
-      {/* Custom Tip Input (Debounced) */}
-      <input
-        type="number"
-        placeholder="Custom Tip %"
-        value={customTip}
-        onChange={(e) => setCustomTip(e.target.value)}
-      />
     </div>
   );
 }
